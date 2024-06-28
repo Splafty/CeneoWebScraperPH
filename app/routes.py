@@ -62,8 +62,8 @@ def extract():
                     with open(f"app/products/{product_id}.json", "w", encoding="UTF-8") as jf:
                         json.dump(stats, jf, indent=4, ensure_ascii=False)
                 return redirect(url_for("product", product_id = product_id))
-            return render_template("extract.html", error = "Podany produkt nie ma żadnych opinii")
-        return render_template("extract.html", error = "Pordukt o podanym kodzie nie istnieje")
+            return render_template("extract.html", error = "Podany produkt nie ma żadnych opinii!")
+        return render_template("extract.html", error = "Pordukt o podanym kodzie nie istnieje!")
     return render_template("extract.html")
 
 @app.route('/products')

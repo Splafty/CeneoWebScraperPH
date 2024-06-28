@@ -1,4 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2 class="text-center mt-4 mb-4">Strona główna</h2>
+
+    <div>
+        <h4 class="mt-4 mb-1">Cel aplikacji</h4>
+        <p>Celem aplikacji jest umożliwienie pobierania i analizy opinii o produktach z serwisu Ceneo.pl na podstawie indywidualnych kodów produktów. Aplikacja ma na celu ułatwienie użytkownikom dostępu do opinii i statystyk dotyczących produktów, co może być pomocne przy podejmowaniu decyzji zakupowych. Ponadto, projekt ten ma na celu rozwijanie umiejętności programistycznych poprzez przechodzenie od strukturalnego kodu do podejścia zorientowanego obiektowo.</p>
+        
+        <h4 class="mt-4 mb-1">Opis działania aplikacji</h4>
+        
+        <p class="mb-1">Aplikacja działa w kilku etapach:</p>
+        <ul>
+            <li>Pobieranie danych - na podstawie podanego kodu produktu, aplikacja pobiera z serwisu Ceneo.pl informacje o produkcie.</li>
+            <li>Przetwarzanie danych - dla każdej opinii pobierane informacje zostają przetworzone przez program.</li>
+            <li>Prezentacja danych - zebrane dane są wyświetlane użytkownikowi w czytelny sposób wraz z podstawowymi statystykami.</li>
+        </ul>
+
+        <p class="mb-1">Zastosowane biblioteki:</p>
+        <ul>
+            <li>beautifulsoup4 - do parsowania HTML i ekstrakcji danych.</li>
+            <li>pandas - do analizy i przetwarzania danych.</li>
+            <li>flask - do stworzenia webowego interfejsu użytkownika (w późniejszych etapach)</li>
+        </ul>
+
+        <p class="mb-1">Zastosowane podejścia:</p>
+        <ul>
+            <li>Kod strukturalny - na początku aplikacja była realizowana w formie pojedynczego pliku z kodem strukturalnym, w którym wszystkie parametry były zapisane jako stałe dosłowne.</li>
+            <li>Kod proceduralny - w kolejnym etapie kod został przerobiony do postaci proceduralnej, z podziałem na funkcje odpowiedzialne za poszczególne zadania.</li>
+            <li>Programowanie obiektowe - w następnym etapie, aplikacja została przepisana wykorzystując podejście obiektowe, co pozwoliło na lepszą organizację kodu i łatwiejszą jego rozbudowę.</li>
+            <li>Webowy interfejs użytkownika - ostatecznie aplikacja została wyposażona w webowy interfejs użytkownika, który umożliwił łatwe wprowadzanie danych przez użytkownika i prezentację wyników w czytelny sposób.</li>
+        </ul>
+    </div>
 {% endblock %}

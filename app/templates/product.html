@@ -1,33 +1,131 @@
 {% extends 'base.html' %}
-
 {% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container
+        {
+            width: 28%;
+        }
+        
+        .flex-container
+        {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+
     <h2 class="text-center mt-4 mb-1">To jest strona produktu {{product_id}}</h2>
     <h5 class="text-center mb-4">{{product.product_name}}</h5>
-    
-    <div>
-        <h4 class="mt-4 mb-1">Podstawowe statystyki:</h4>
-        <ul>
-            <li><strong>Liczba opinii:</strong> {{product.opinions_count}}</li>
-            <li><strong>Liczba zalet:</strong> {{product.pros_count}}</li>
-            <li><strong>Liczba wad:</strong> {{product.cons_count}}</li>
-            <li><strong>Średnia ocena:</strong> {{product.average_stars}}</li>
-        </ul>
 
-        <h4 class="mt-4 mb-1">Rozkład gwiazdek:</h4>
-        <ul>
-            {%for star, count in product.stars_distribution.items()%}
-                <li><strong>{{star}} gwiazdki: </strong>{{count}}</li>
-            {%endfor%}
-        </ul>
+    <div class="row g-2 align-items-center flex-container">
+        <div class="col-auto">
+            <h4 class="mt-4 mb-1">Podstawowe statystyki:</h4>
+            <ul>
+                <li><strong>Liczba opinii:</strong> {{product.opinions_count}}</li>
+                <li><strong>Liczba zalet:</strong> {{product.pros_count}}</li>
+                <li><strong>Liczba wad:</strong> {{product.cons_count}}</li>
+                <li><strong>Średnia ocena:</strong> {{product.average_stars}}</li>
+            </ul>
 
-        <h4 class="mt-4 mb-1">Rekomendacje:</h4>
-        <ul>
-            {% for recommendation, count in product.recommendations_distribution.items() %}
-                <li><strong> {{recommendation}}: </strong>{{count}}</li>
-            {% endfor %}
-        </ul>
+            <h4 class="mt-4 mb-1">Rozkład gwiazdek:</h4>
+            <ul>
+                {%for star, count in product.stars_distribution.items()%}
+                    <li><strong>{{star}} gwiazdki: </strong>{{count}}</li>
+                {%endfor%}
+            </ul>
+
+            <h4 class="mt-4 mb-1">Rekomendacje:</h4>
+            <ul>
+                {% for recommendation, count in product.recommendations_distribution.items() %}
+                    <li><strong> {{recommendation}}: </strong>{{count}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-auto chart-container">
+            <canvas id="recommendationsChart"></canvas>
+        </div>
+
+        <div class="col-auto chart-container">
+            <canvas id="starsChart"></canvas>
+        </div>
     </div>
 
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function()
+        {
+            const recommendationsData =
+            {
+                labels: Object.keys({{product.recommendations_distribution|tojson }}),
+                datasets: [{
+                    data: Object.values({{product.recommendations_distribution|tojson }}),
+                    backgroundColor: ['#66b3ff', '#f94449', '#99ff99'],
+                }]
+            };
+
+            const starsData =
+            {
+                labels: Object.keys({{product.stars_distribution|tojson }}),
+                datasets: [{
+                    data: Object.values({{product.stars_distribution|tojson }}),
+                    backgroundColor: '#66b3ff',
+                }]
+            };
+
+            const recommendationsConfig =
+            {
+                type: 'pie',
+                data: recommendationsData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                    }
+                },
+            };
+
+            const starsConfig =
+            {
+                type: 'bar',
+                data: starsData,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Liczba gwiazdek'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Liczba opinii'
+                            }
+                        }
+                    }
+                },
+            };
+
+            new Chart(
+                document.getElementById('recommendationsChart'),
+                recommendationsConfig
+            );
+
+            new Chart(
+                document.getElementById('starsChart'),
+                starsConfig
+            );
+        });
+    </script>
 
     {% if error is defined %}
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
