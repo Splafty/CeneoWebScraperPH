@@ -30,20 +30,26 @@ def extract():
                     response = requests.get(url)
                     page_dom = BeautifulSoup(response.text, "html.parser")
                     opinions = page_dom.select("div.js_product-review")
+
                     for opinion in opinions:
                         single_opinion = {
                             key: utils.extract(opinion, *value)
                                 for key, value in utils.selectors.items()
                         }
-                        all_opinions.append(single_opinion)
+                        if single_opinion.get("author") and single_opinion["author"].strip():
+                            all_opinions.append(single_opinion)
                     try:
                         url = "https://www.ceneo.pl" + page_dom.select_one("a.pagination__next")["href"].strip()
                     except TypeError: 
                         url = None
+
+                    # Save opinions
                     if not os.path.exists("app/opinions"):
                         os.makedirs("app/opinions")
                     with open(f"app/opinions/{product_id}.json", "w", encoding="UTF-8") as jf:
                         json.dump(all_opinions, jf, indent = 4, ensure_ascii = False)
+
+                    # Process stats
                     opinions = pd.DataFrame.from_dict(all_opinions)
                     opinions.stars = opinions.stars.apply(lambda s: s.split("/")[0].replace(",",".")).astype(float)
                     opinions.recommendations = opinions.recommendations.apply(lambda r: "Brak rekomendacji" if r is None else r)
@@ -68,11 +74,14 @@ def extract():
 
 @app.route('/products')
 def products():
-    products_list = [filename.split(".")[0] for filename in os.listdir("app/opinions")]
     products = []
-    for product_id in products_list:
-        with open(f"app/products/{product_id}.json", "r", encoding="UTF-8") as jf:
-            products.append(json.load(jf))
+    if os.path.exists("app/opinions"):
+        products_list = [filename.split(".")[0] for filename in os.listdir("app/opinions")]
+
+        for product_id in products_list:
+            if os.path.exists(f"app/products/{product_id}.json"):
+                with open(f"app/products/{product_id}.json", "r", encoding="UTF-8") as jf:
+                    products.append(json.load(jf))
     return render_template("products.html", products=products)
 
 @app.route('/about')
