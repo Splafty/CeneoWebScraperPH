@@ -12,8 +12,8 @@ function opentab(event, tabname)
     
     for(tabcontent of tabcontents)
     {
-        tabcontent.classList.remove("active-tab");
+        tabcontent.classList.remove("active-tab", "show");
     }
     event.currentTarget.classList.add("active-link");
-    document.getElementById(tabname).classList.add("active-tab");
+    document.getElementById(tabname).classList.add("active-tab", "show");
 }
