@@ -23,7 +23,7 @@ py -m pip install -r requirements.txt
 ```
 py -m flask run
 ```
-5. Holding CTRL, click on the "http" link provided in console  
+5. Holding CTRL, click on the "http" link provided in the console  
 (Should look like this: Running on http://127.0.0.1:5000)
 
 ## ✨ Using the Scraper
@@ -53,18 +53,18 @@ This project provides a user-friendly web interface to:
 
 ## 🛠️ Tech Stack
 
-- **HTML** – The structure of the web pages, defining layout and content.
-- **CSS** – Styling the interface: colors, fonts, spacing, and layout adjustments.
-- **JavaScript** – Used for interactive elements on the frontend, like toggling tabs and dynamic content updates.
-- **RWD (Responsive Web Design)** – Ensures the website looks and works well on all screen sizes (desktop, tablet, mobile).
-- **Bootstrap** – A CSS framework used to design the UI with already created components.
-- **Chart.js** – A JavaScript library used to generate dynamic charts that visualize scraped review data (e.g. stars distribution).
-- **Python** – Backend language used for the scraping logic and data processing.
-- **Flask** – Python web framework used to serve the app and handle routing between pages.
-- **Jinja2** – Templating engine integrated with Flask to render dynamic HTML pages based on data.
-- **BeautifulSoup4** – Web scraping library used to extract opinions and metadata from Ceneo product pages.
-- **Requests** – Python library used to send HTTP requests to Ceneo and fetch product review pages.
-- **Pandas** – Used to structure and process scraped data.
-- **Numpy** – Data processing and statistics.
+- **HTML** – The structure of the web pages, defining layout and content
+- **CSS** – Styling the interface: colors, fonts, spacing, and layout adjustments
+- **JavaScript** – Used for interactive elements on the frontend, like toggling tabs and dynamic content updates
+- **RWD (Responsive Web Design)** – Ensures the website looks and works well on all screen sizes (desktop, tablet, mobile)
+- **Bootstrap** – A CSS framework used to design the UI with already created components
+- **Chart.js** – A JavaScript library used to generate dynamic charts that visualize scraped review data (e.g. stars distribution)
+- **Python** – Backend language used for the scraping logic and data processing
+- **Flask** – Python web framework used to serve the app and handle routing between pages
+- **Jinja2** – Templating engine integrated with Flask to render dynamic HTML pages based on data
+- **BeautifulSoup4** – Web scraping library used to extract opinions and metadata from Ceneo product pages
+- **Requests** – Python library used to send HTTP requests to Ceneo and fetch product review pages
+- **Pandas** – Used to structure and process scraped data
+- **Numpy** – Data processing and statistics
 
 ---
